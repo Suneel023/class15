@@ -28,7 +28,7 @@ def img_upload(request):
 """
 def img_upload(request):
     return render(request,"img_upload.html")
-
+"""
 def img_display(request):
     file_url=False
     if request.method=="POST" and request.FILES:
@@ -44,4 +44,13 @@ def img_display(request):
             file_url=fs.url(file)
             file_urls.append(file_url)
 
+    return render(request,"img_display.html",context={'file_urls':file_urls})
+"""
+from myapp.utilities import store_image
+def img_display(request):
+    file_urls=False
+    if request.method=="POST" and request.FILES:
+        image1=request.FILES.get('sam1')
+        image2=request.FILES.get('sam2')
+        file_urls=map(store_image,[image1,image2])
     return render(request,"img_display.html",context={'file_urls':file_urls})
